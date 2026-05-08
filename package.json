@@ -1,0 +1,22 @@
+{
+  "name": "git-ghost",
+  "version": "0.1.0",
+  "description": "AI-powered Git commit message generator — 让每次 commit 都有意义",
+  "main": "dist/index.js",
+  "bin": {
+    "gg": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "openai": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.4.0"
+  }
+}
