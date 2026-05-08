@@ -1,6 +1,5 @@
 export interface DiffSummary {
   files: string[]
-  fileTypes?: string[]
   addedLines: number
   deletedLines: number
   keywords: string[]
@@ -8,8 +7,14 @@ export interface DiffSummary {
 }
 
 export interface CommitMessage {
-  type: 'feat' | 'fix' | 'refactor' | 'chore' | 'test' | 'docs' | 'style'
+  type: 'feat' | 'fix' | 'refactor' | 'chore' | 'test' | 'docs' | 'style' | 'perf' | 'ci' | 'build'
   scope?: string
   subject: string
   body?: string
+}
+
+export interface PRSummary extends DiffSummary {
+  baseBranch: string
+  headBranch: string
+  commitCount: number
 }
