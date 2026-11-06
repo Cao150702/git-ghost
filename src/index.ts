@@ -1,7 +1,6 @@
 #!/usr/bin/env node
-import { getStagedDiff, getBranchDiff, getCommitDiff, parseDiff, generateCommitMessage, generatePRDescription, formatCommit } from './analyzer'
+import { getStagedDiff, getBranchDiff, getBranchCommitCount, getCommitDiff, parseDiff, generateCommitMessage, generatePRDescription, formatCommit } from './analyzer'
 import type { PRSummary } from './types'
-import { execSync } from 'child_process'
 
 async function main() {
   const args = process.argv.slice(2)
@@ -46,8 +45,7 @@ async function main() {
       // Get commit count
       let commitCount = 0
       try {
-        const log = execSync(`git log ${base}...${head} --oneline`, { encoding: 'utf-8' })
-        commitCount = log.trim().split('\n').filter(Boolean).length
+        commitCount = getBranchCommitCount(base, head)
       } catch { /* ignore */ }
 
       const summary: PRSummary = { ...parsed, baseBranch: base, headBranch: head, commitCount }

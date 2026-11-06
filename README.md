@@ -118,6 +118,17 @@ src/
 
 ---
 
+## 开发与测试
+
+```bash
+npm install
+npm test
+```
+
+测试使用 Node.js 内置测试运行器和临时 Git 仓库，不读取个人 Git 配置，不需要 API Key，也不调用 AI 服务。覆盖正常分支、标签、短哈希、相对 revision、三点 diff，以及 shell/Git 选项注入回归。
+
+`gg pr [base] [head]` 的两个参数和 `gg explain <ref>` 均须解析为单个 commit。合法 Git revision（如 `HEAD~1`、`release^{}`）仍可使用；Git 选项、范围、文件路径和非 commit 对象会被拒绝。Git 调用不经过 shell，也不运行 external diff 或 textconv 程序。
+
 ## Author
 
 [@Cao150702](https://github.com/Cao150702)

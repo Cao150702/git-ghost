@@ -1,4 +1,3 @@
-import { execSync } from 'child_process'
 import { OpenAI } from 'openai'
 import type { DiffSummary, CommitMessage, PRSummary } from './types'
 
@@ -154,33 +153,5 @@ export function formatCommit(msg: CommitMessage): string {
   return result
 }
 
-// ============================================================
-// Git helpers
-// ============================================================
-
-export function getStagedDiff(): string {
-  try {
-    return execSync('git diff --staged', { encoding: 'utf-8', maxBuffer: 10 * 1024 * 1024 })
-  } catch {
-    console.error('Error: No staged changes found. Run `git add` first.')
-    process.exit(1)
-  }
-}
-
-export function getBranchDiff(base: string, head: string): string {
-  try {
-    return execSync(`git diff ${base}...${head}`, { encoding: 'utf-8', maxBuffer: 20 * 1024 * 1024 })
-  } catch {
-    console.error(`Error: Cannot diff ${base}...${head}. Check branch names.`)
-    process.exit(1)
-  }
-}
-
-export function getCommitDiff(hash: string): string {
-  try {
-    return execSync(`git show ${hash}`, { encoding: 'utf-8', maxBuffer: 10 * 1024 * 1024 })
-  } catch {
-    console.error(`Error: Cannot find commit ${hash}`)
-    process.exit(1)
-  }
-}
+// Keep the existing analyzer imports working while isolating Git execution.
+export { getStagedDiff, getBranchDiff, getBranchCommitCount, getCommitDiff } from './git'
